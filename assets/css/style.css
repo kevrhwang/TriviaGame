@@ -2,6 +2,19 @@
 	text-align: center;
 }
 
+body {
+	background-image: url(../images/stage.jpg);
+	background-size: 100%;
+}
+
+h1 {
+	font-family: cursive;
+}
+
+.jumbotron {
+	background-color: cornsilk;
+}
+
 .btn {
 	font-size: 22px;
 	color: white;

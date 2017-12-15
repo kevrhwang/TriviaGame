@@ -41,9 +41,10 @@ var questions = [{
 
 }]
 
+//when start is clicked, button is cleared away and timer and questions are populated
 $("#start").click(function(){
 	$("#content").empty();
-	$("#timer").html("Time Left: 120");
+	$("#timer").html("Time Left: 90");
 
 	startTimer();
 
@@ -57,11 +58,13 @@ $("#start").click(function(){
 	$("#content").append("<br><button id='submit' class='btn btn-primary'> SUBMIT")
 });
 
+//dynamically generated submit button will run finishPage function if clicked
 $(document).on("click", "#submit", finishPage);
 
-var time = 120;
+var time = 90;
 var intervalId;
 
+//timer functions
 function decrement() {
 	time--;
 
@@ -87,18 +90,16 @@ var wrong = 0;
 var notAnswered = 0;
 
 function checkAnswers() {
-	var isChecked;
+	
 	for (var i = 0; i < questions.length; i++) {
-		
-		isChecked = $("input[name='Q" + i + "]:checked");
-
-		console.log(isChecked);
-		
-		if ($.each(isChecked)) {
-			if ($("#Q" + i).val() === questions[i]["rightAnswer"]) {
-				console.log($("#Q" + i).val())
-				console.log(questions[i]["rightAnswer"])
-				correct ++
+		var selected = $("input[name='Q" + i + "']:checked");
+		//checks if any button within same name attribute has been selected
+		//if not, notAnswered increments
+		//if selected, value is compared against the right answer
+		//if equivalent, correct increment, else wrong increments
+		if (selected.length > 0) {
+			if (selected.val() === questions[i]["rightAnswer"]) {
+				correct ++;
 			} else {
 				wrong ++;
 			}
@@ -108,6 +109,7 @@ function checkAnswers() {
 	}
 }
 
+//function that clears question page and brings up results when time runs out or submit button clicked
 function finishPage() {
 	stop();
 	checkAnswers()
